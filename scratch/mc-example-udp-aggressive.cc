@@ -746,6 +746,7 @@ main (int argc, char *argv[])
   }
   
   Config::SetDefault ("ns3::LteEnbRrc::FixedTttValue", UintegerValue (150));
+  Config::SetDefault ("ns3::LteEnbRrc::MaxDiffValue", DoubleValue(8));
   Config::SetDefault ("ns3::LteEnbRrc::CrtPeriod", IntegerValue (ReportTablePeriodicity));
   Config::SetDefault ("ns3::LteEnbRrc::OutageThreshold", DoubleValue (outageTh));
   Config::SetDefault ("ns3::MmWaveEnbPhy::UpdateSinrEstimatePeriod", IntegerValue (ReportTablePeriodicity));

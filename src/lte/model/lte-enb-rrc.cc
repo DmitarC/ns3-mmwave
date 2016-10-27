@@ -3192,14 +3192,14 @@ LteEnbRrc::TttBasedHandover(std::map<uint64_t, CellSinrMap>::iterator imsiIter, 
       // check if the cell to which the handover should happen is maxSinrCellId
       if(handoverEvent->second.targetCellId == maxSinrCellId)
       {
-        if(currentSinrDb < m_outageThreshold) // we need to handover right now!
-        {
-          handoverEvent->second.scheduledHandoverEvent.Cancel();
-          handoverNeeded = true;
-          NS_LOG_INFO("------ Handover was already scheduled, but the current cell is in outage, thus HO to " << maxSinrCellId);
-        }
-        else
-        {
+        // if(currentSinrDb < m_outageThreshold) // we need to handover right now!
+        // {
+        //   handoverEvent->second.scheduledHandoverEvent.Cancel();
+        //   handoverNeeded = true;
+        //   NS_LOG_INFO("------ Handover was already scheduled, but the current cell is in outage, thus HO to " << maxSinrCellId);
+        // }
+        // else
+        // {
           // TODO consider if TTT must be updated or if it can remain as computed before
           // we should compute the new TTT: if Now() + TTT < scheduledTime then update!
           uint8_t newTtt = ComputeTtt(sinrDifference);
@@ -3211,7 +3211,7 @@ LteEnbRrc::TttBasedHandover(std::map<uint64_t, CellSinrMap>::iterator imsiIter, 
             NS_LOG_INFO("------ Handover remains scheduled for " << maxSinrCellId << " but a new shorter TTT is computed");
             handoverNeeded = true;
           }  
-        }
+        //}
       }
       else
       {
@@ -3269,11 +3269,11 @@ LteEnbRrc::TttBasedHandover(std::map<uint64_t, CellSinrMap>::iterator imsiIter, 
     uint8_t millisecondsToHandover = ComputeTtt(sinrDifference);
     NS_LOG_INFO("The sinrDifference is " << sinrDifference << " and the TTT computed is " << (uint32_t)millisecondsToHandover 
       << " ms, thus the event will happen at time " << Simulator::Now().GetMilliSeconds() + millisecondsToHandover);
-    if(currentSinrDb < m_outageThreshold)
-    {
-      millisecondsToHandover = 0;
-      NS_LOG_INFO("Current Cell is in outage, handover immediately");
-    }
+    // if(currentSinrDb < m_outageThreshold)
+    // {
+    //   millisecondsToHandover = 0;
+    //   NS_LOG_INFO("Current Cell is in outage, handover immediately");
+    // }
     // schedule the event
     EventId scheduledHandoverEvent = Simulator::Schedule(MilliSeconds(millisecondsToHandover), &LteEnbRrc::PerformHandover, this, imsi);
     LteEnbRrc::HandoverEventInfo handoverInfo;
